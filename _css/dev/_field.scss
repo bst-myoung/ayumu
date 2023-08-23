@@ -1,0 +1,9 @@
+.field {
+    height: 100vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    &.field-grey {
+        background-color: #ededed;
+    }
+}
