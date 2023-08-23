@@ -213,7 +213,7 @@ body {
 }
 .steptracker-wrapper .steptracker {
   font-family: "Bebas Neue", sans-serif;
-  opacity: 0.15;
+  opacity: 0.05;
   font-size: 5750%;
   margin-top: 75px;
   line-height: 0;
@@ -244,6 +244,7 @@ body {
   display: block;
   height: 64px;
   width: 64px;
+  transition: all 250ms ease;
 }
 
 .ayumu {
@@ -287,13 +288,13 @@ body {
 }
 #ayumu-move01.active {
   animation-name: animAyumuMove01;
-  animation-duration: 600ms;
+  animation-duration: 344ms;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 #ayumu-move02.active {
   animation-name: animAyumuMove02;
-  animation-duration: 600ms;
+  animation-duration: 344ms;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }/*# sourceMappingURL=main.css.map */

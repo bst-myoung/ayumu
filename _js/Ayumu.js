@@ -1,98 +1,112 @@
 // Ayumu.js
 
-export class Ayumu {
-  constructor(stepRate, stepDistance, xPos, yPos) {
+import { StepTracker } from './StepTracker.js';
 
-    this.stepRate = stepRate;
-    this.stepDistance = stepDistance;
+
+export class Ayumu {
+  constructor(elem, xPos, yPos) {
+    this.elem = elem;
+    this.stepRate = 100;
+    this.stepDistance = 33;
     this.xPos = xPos;
     this.yPos = yPos;
-
-
-      document.querySelectorAll('.ayumu').forEach(ayumu => {
-          ayumu.classList.remove('active');
-      });
-      setTimeout(() => {
-          document.querySelector('.ayumu-initial').classList.add('active');
-      }, 10);
+    this.wasMoved = false;    
+    document.querySelectorAll('.ayumu').forEach(ayumu => {
+        ayumu.classList.remove('active');
+    });
+    setTimeout(() => {
+        document.querySelector('.ayumu-initial').classList.add('active');
+    }, 10);
   }
+
+  
+  ayumuWasMoved() {        
+    return this.wasMoved;    
+  }  
+  ayumuWasMovedReset() {
+    this.wasMoved = false;
+  }
+
   ayumuBuild() {
       
   }
-  ayumuHandleMove() {
-      // document.addEventListener('keydown', (e) => {
-      //     ayumuStartAnimMove();
-      //     if(e.key === 'ArrowUp') {
-      //         ayumuMoveUp();
-      //     }
-      //     if(e.key === 'ArrowRight') {
-      //         ayumuMoveRight();
-      //     }
-      //     if(e.key === 'ArrowDown') {
-      //         ayumuMoveDown();
-      //     }
-      //     if(e.key === 'ArrowLeft') {
-      //         ayumuMoveLeft();
-      //     }
-      // });
-      // document.addEventListener('keyup', (e) => {
-      //     ayumuStartAnimIdle();        
-      // });
-      
-      console.log('handle move');
+  ayumuHandleMove(direction) {
+    switch (direction) {
+      case 'up':        
+      this.ayumuMoveUp();      
+      break;
+      case 'right':
+      this.ayumuMoveRight();
+      break;
+      case 'down':
+      this.ayumuMoveDown();        
+      break;
+      case 'left':
+      this.ayumuMoveLeft();
+      break;
+      default:        
+      break;
+    }    
+    this.ayumuBeginAnim();
+    this.wasMoved = true;    
   }
-  ayumuStartAnimMove() {
-      document.querySelector('.ayumu-idle').classList.remove('active');
-      this.ayumuWalkAnimation();
+  ayumuBeginAnim() {
+    document.querySelector('.ayumu-idle').classList.remove('active');
+    this.ayumuWalkAnim();
   }
-  ayumuWalkAnimation() {
+  ayumuWalkAnim() {
       document.querySelector('#ayumu-move01').classList.add('active');
-      document.querySelector('#ayumu-move02').classList.add('active');  
-      return;      
+      document.querySelector('#ayumu-move02').classList.add('active');
   }
-  ayumuStartAnimIdle() {
-      document.querySelectorAll('.ayumu-move').forEach(ayumu => {        
-          ayumu.classList.remove('active');
-      });
-      document.querySelector('.ayumu-idle').classList.add('active');
+  ayumuStopAnim() {
+    document.querySelector('#ayumu-move01').classList.remove('active');
+    document.querySelector('#ayumu-move02').classList.remove('active');
+    document.querySelector('.ayumu-idle').classList.add('active');
   }
+  // ayumuStartAnimMove() {
+  //     document.querySelector('.ayumu-idle').classList.remove('active');
+  //     this.ayumuWalkAnimation();
+  // }
+  // ayumuWalkAnimation() {
+  //     document.querySelector('#ayumu-move01').classList.add('active');
+  //     document.querySelector('#ayumu-move02').classList.add('active');  
+  //     return;      
+  // }
+  // ayumuStartAnimIdle() {
+  //     document.querySelectorAll('.ayumu-move').forEach(ayumu => {        
+  //         ayumu.classList.remove('active');
+  //     });
+  //     document.querySelector('.ayumu-idle').classList.add('active');
+  // }
   
-  ayumuMoveUp() {    
-      setTimeout(() => {
-          document.querySelector('#ayumu').style.transform = 'translateX(' + xPos + 'px) translateY(' + ayumuUpdateY('up') + 'px)';
-      }, this.stepRate)
+  ayumuMoveUp() {             
+    this.elem.style.transform = 'translateX(' + this.xPos +'px) translateY(' + this.ayumuUpdateY('up') + 'px)';                
   }
   ayumuMoveRight() {
-      setTimeout(() => {
-          document.querySelector('#ayumu').style.transform = 'translateX(' + ayumuUpdateX('right') + 'px) translateY(' + yPos + 'px)';
-      }, stepRate)
+    this.elem.style.transform = 'translateX(' + this.ayumuUpdateX('right') + 'px) translateY(' + this.yPos + 'px)';
   }
-  ayumuMoveDown() {
-      setTimeout(() => {
-          document.querySelector('#ayumu').style.transform = 'translateX(' + xPos + 'px) translateY(' + ayumuUpdateY('down') + 'px)';
-      }, stepRate)
+  ayumuMoveDown() {          
+    this.elem.style.transform = 'translateX(' + this.xPos +'px) translateY(' + this.ayumuUpdateY('down') + 'px)';
   }
   ayumuMoveLeft() {
-      setTimeout(() => {
-          document.querySelector('#ayumu').style.transform = 'translateX(' + ayumuUpdateX('left') + 'px) translateY(' + yPos + 'px)';
-      }, stepRate)
+    this.elem.style.transform = 'translateX(' + this.ayumuUpdateX('left') + 'px) translateY(' + this.yPos + 'px)';
   }
   ayumuUpdateX(args) {
-      stepTracker.stepTrackerUpdate();
-      if(args === 'right') {
-          return xPos = xPos + stepDistance;    
+      // stepTracker.stepTrackerUpdate();
+      if(args === 'right') {;
+          return this.xPos = this.xPos + this.stepDistance;    
       }
       if(args === 'left') {
-          return xPos = xPos - stepDistance;    
+          return this.xPos = this.xPos - this.stepDistance;    
       }
   }
   ayumuUpdateY(args) {   
-      stepTracker.stepTrackerUpdate();
-      if(args === 'up') {
-          return yPos = yPos - stepDistance;    
+      // // stepTracker.stepTrackerUpdate();
+      if(args === 'up') {                
+          return this.yPos = this.yPos - this.stepDistance;    
       }
-      if(args === 'down') {
-          return yPos = yPos + stepDistance;    
-      }
+      if(args === 'down') {        
+          return this.yPos = this.yPos + this.stepDistance;    
+      }      
   }
 }

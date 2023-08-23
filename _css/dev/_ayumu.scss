@@ -12,6 +12,7 @@
     display: block;
     height: 64px;
     width: 64px;
+    transition: all 250ms ease;
 }
 .ayumu {
     position: absolute;
@@ -59,7 +60,7 @@
     &1 {        
         &.active {
             animation-name: animAyumuMove01;
-            animation-duration: 600ms; 
+            animation-duration: 344ms; 
             animation-timing-function: linear;
             animation-iteration-count: infinite;             
         }
@@ -67,7 +68,7 @@
     &2 {
         &.active {            
             animation-name: animAyumuMove02;
-            animation-duration: 600ms; 
+            animation-duration: 344ms; 
             animation-timing-function: linear;
             animation-iteration-count: infinite;             
         }

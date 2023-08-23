@@ -1,18 +1,15 @@
 // import LottieAnimations from './LottieAnimations.js';
 import { Ayumu } from './Ayumu.js';
 import { GameButton } from './GameButton.js';
+import { StepTracker } from './StepTracker.js';
 
 let xPos;
 let yPos;
 let stepCounter;
-let stepRate;
-let stepDistance;
 let gameCounter = 0;
 xPos = 0;
 yPos = 0;
-stepCounter = 0;
-stepRate = 10;
-stepDistance = 25;
+let lastFrameTime = 0;
 
 
 const gameButtons = {
@@ -21,48 +18,35 @@ const gameButtons = {
     buttonDown    : new GameButton('ArrowDown', 'down'),
     buttonLeft    : new GameButton('ArrowLeft', 'left'),    
 }
-const ayumu = new Ayumu();
-ayumu.ayumuMoveUp();
+const ayumu = new Ayumu(document.querySelector('#ayumu'), xPos, yPos);
+const stepTracker = new StepTracker('#steptracker');
 
 function startPage() {        
     requestAnimationFrame(gameClock);
 } //startPage
 
-function gameClock() {
+function gameClock(timestamp) {
+    
+    const dt = timestamp - lastFrameTime;
 
-    gameButtons.buttonUp.handleButtonPress();
-    gameButtons.buttonRight.handleButtonPress();
-    gameButtons.buttonDown.handleButtonPress();
-    gameButtons.buttonLeft.handleButtonPress();
+    
+    if(dt > 144) {
+        
+        gameButtons.buttonUp.handleButtonPress(ayumu);
+        gameButtons.buttonRight.handleButtonPress(ayumu);
+        gameButtons.buttonDown.handleButtonPress(ayumu);
+        gameButtons.buttonLeft.handleButtonPress(ayumu);
+    
+        stepTracker.stepCheck(ayumu);
+        ayumu.ayumuWasMovedReset();
+    
+        lastFrameTime = timestamp;
+    
+    }
+    requestAnimationFrame(gameClock);
 
-    requestAnimationFrame(gameClock);    
 }
-
-
-
-
-
-
-
-
-class StepTracker {
-    constructor(element) {
-        this.element = element;
-        this.stepTrackerBuild(this.element);    
-    }
-    stepTrackerBuild(elem) {
-        document.querySelector(elem).innerHTML = stepCounter;
-    }
-    stepTrackerUpdate() {
-        stepCounter++;
-        document.querySelector('#steptracker').innerHTML = stepCounter;
-    }
-}
-const stepTracker = new StepTracker('#steptracker');
-
-
-
 
 document.addEventListener('DOMContentLoaded', function () {    
-    startPage ();      
+    startPage ();
   });

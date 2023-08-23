@@ -1,5 +1,4 @@
 // GameButton.js
-
 import { Ayumu } from './Ayumu.js';
 
 export class GameButton {
@@ -37,28 +36,11 @@ export class GameButton {
       this.isChanged = true;        
       ///think a little more about how to handle this logic
   }    
-  handleButtonPress() {
+  handleButtonPress(ayumu) {
     if(!this.isPressed) {
         return;
     }       
-    switch (this.direction) {
-        case 'up':
-        console.log(this.element + " " + this.isPressed);
-        ayumu.ayumuMoveUp();
-        break;
-        case 'right':
-        console.log(this.element + " " + this.isPressed);
-        break;
-        case 'down':
-        console.log(this.element + " " + this.isPressed);
-        break;
-        case 'left':
-        console.log(this.element + " " + this.isPressed);
-        break;
-        default:        
-        break;
-    }
+    ayumu.ayumuHandleMove(this.direction);    
   }
-
 } 
 
