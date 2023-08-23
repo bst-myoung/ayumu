@@ -34,7 +34,6 @@ export class GameButton {
           return;
       }
       this.isChanged = true;        
-      ///think a little more about how to handle this logic
   }    
   handleButtonPress(ayumu) {
     if(!this.isPressed) {

@@ -1,16 +1,13 @@
-// import LottieAnimations from './LottieAnimations.js';
 import { Ayumu } from './Ayumu.js';
 import { GameButton } from './GameButton.js';
 import { StepTracker } from './StepTracker.js';
 
 let xPos;
 let yPos;
-let stepCounter;
-let gameCounter = 0;
+let lastFrameTime = 0;
 xPos = 0;
 yPos = 0;
-let lastFrameTime = 0;
-
+lastFrameTime = 0;
 
 const gameButtons = {
     buttonUp      : new GameButton('ArrowUp', 'up'),
@@ -18,7 +15,7 @@ const gameButtons = {
     buttonDown    : new GameButton('ArrowDown', 'down'),
     buttonLeft    : new GameButton('ArrowLeft', 'left'),    
 }
-const ayumu = new Ayumu(document.querySelector('#ayumu'), xPos, yPos);
+const ayumu = new Ayumu('#ayumu', xPos, yPos);
 const stepTracker = new StepTracker('#steptracker');
 
 function startPage() {        
@@ -28,10 +25,8 @@ function startPage() {
 function gameClock(timestamp) {
     
     const dt = timestamp - lastFrameTime;
-
     
-    if(dt > 144) {
-        
+    if(dt > 144) {        
         gameButtons.buttonUp.handleButtonPress(ayumu);
         gameButtons.buttonRight.handleButtonPress(ayumu);
         gameButtons.buttonDown.handleButtonPress(ayumu);
@@ -40,9 +35,9 @@ function gameClock(timestamp) {
         stepTracker.stepCheck(ayumu);
         ayumu.ayumuWasMovedReset();
     
-        lastFrameTime = timestamp;
-    
+        lastFrameTime = timestamp;    
     }
+
     requestAnimationFrame(gameClock);
 
 }

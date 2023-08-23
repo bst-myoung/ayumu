@@ -5,7 +5,7 @@ import { StepTracker } from './StepTracker.js';
 
 export class Ayumu {
   constructor(elem, xPos, yPos) {
-    this.elem = elem;
+    this.elem = document.querySelector(elem);
     this.stepRate = 100;
     this.stepDistance = 33;
     this.xPos = xPos;
@@ -17,9 +17,7 @@ export class Ayumu {
     setTimeout(() => {
         document.querySelector('.ayumu-initial').classList.add('active');
     }, 10);
-  }
-
-  
+  }  
   ayumuWasMoved() {        
     return this.wasMoved;    
   }  
@@ -63,22 +61,6 @@ export class Ayumu {
     document.querySelector('#ayumu-move02').classList.remove('active');
     document.querySelector('.ayumu-idle').classList.add('active');
   }
-  // ayumuStartAnimMove() {
-  //     document.querySelector('.ayumu-idle').classList.remove('active');
-  //     this.ayumuWalkAnimation();
-  // }
-  // ayumuWalkAnimation() {
-  //     document.querySelector('#ayumu-move01').classList.add('active');
-  //     document.querySelector('#ayumu-move02').classList.add('active');  
-  //     return;      
-  // }
-  // ayumuStartAnimIdle() {
-  //     document.querySelectorAll('.ayumu-move').forEach(ayumu => {        
-  //         ayumu.classList.remove('active');
-  //     });
-  //     document.querySelector('.ayumu-idle').classList.add('active');
-  // }
-  
   ayumuMoveUp() {             
     this.elem.style.transform = 'translateX(' + this.xPos +'px) translateY(' + this.ayumuUpdateY('up') + 'px)';                
   }
