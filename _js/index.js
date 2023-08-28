@@ -21,7 +21,7 @@ const gameButtons = {
 const ayumu = new Ayumu('#ayumu', xPos, yPos);
 const stepTracker = new StepTracker('#steptracker');
 const specialInputListener = new SpecialMove('hadoken', ['down', 'right', 'punch']);
-
+//
 function startPage() {        
     requestAnimationFrame(gameClock);
     const theField = new Field('#field');
