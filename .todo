@@ -1,0 +1,13 @@
+1. Added a Field class, found the coordinates
+2. Get a fuction that records Ayumu's posiiton when ayumuMoveDown
+3. Compare that position with relevant Field positions
+4. When the difference on those values is like <50, prevent movement in that relevant direction
+
+5. After that, consider adding something like a shrinking box, or projectiles he has to dodge
+6. Or even projectiles that push him around??
+7. Or more simply, just geography he cant navigate
+
+-- -- Side note, all of these problems run the risk of damaging the "cool" aesthetic
+
+8. Thinking about letting him do hadokens or shoryukens
+9. Y's style "battle" system?
