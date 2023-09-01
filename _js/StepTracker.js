@@ -1,6 +1,4 @@
 // StepTracker.js
-import { GameButton } from './GameButton.js';
-import { Ayumu } from './Ayumu.js';
 
 export class StepTracker {
   constructor(element) {

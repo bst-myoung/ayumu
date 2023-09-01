@@ -1,8 +1,5 @@
 // Ayumu.js
 
-import { StepTracker } from './StepTracker.js';
-
-
 export class Ayumu {
   constructor(elem, xPos, yPos) {
     this.elem = document.querySelector(elem);
@@ -10,7 +7,8 @@ export class Ayumu {
     this.stepDistance = 33;
     this.xPos = xPos;
     this.yPos = yPos;
-    this.wasMoved = false;    
+    this.wasMoved = false;        
+    this.player = "player 1";
     document.querySelectorAll('.ayumu').forEach(ayumu => {
         ayumu.classList.remove('active');
     });
@@ -20,16 +18,24 @@ export class Ayumu {
   }  
   ayumuWasMoved() {        
     return this.wasMoved;    
-  }  
+  } // delete?? 
   ayumuWasMovedReset() {
     this.wasMoved = false;
-  }
-
+  } // delete??
   ayumuBuild() {
       
   }
-  ayumuHandleMove(direction) {
-    switch (direction) {
+  ayumuHandleAction(input) {
+    switch (input) {
+      case 'punch':
+      this.ayumuPunch();    
+      break;
+      default:
+      break;
+    }
+  }
+  ayumuHandleMove(input) {
+    switch (input) {
       case 'up':        
       this.ayumuMoveUp();      
       break;
@@ -41,8 +47,8 @@ export class Ayumu {
       break;
       case 'left':
       this.ayumuMoveLeft();
-      break;
-      default:        
+      break;      
+      default:    
       break;
     }    
     this.ayumuBeginAnim();
@@ -72,6 +78,9 @@ export class Ayumu {
   }
   ayumuMoveLeft() {
     this.elem.style.transform = 'translateX(' + this.ayumuUpdateX('left') + 'px) translateY(' + this.yPos + 'px)';
+  }
+  ayumuPunch() {
+    
   }
   ayumuUpdateX(args) {
       // stepTracker.stepTrackerUpdate();

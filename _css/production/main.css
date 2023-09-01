@@ -217,6 +217,9 @@ body {
   font-size: 5750%;
   margin-top: 75px;
   line-height: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .field {
