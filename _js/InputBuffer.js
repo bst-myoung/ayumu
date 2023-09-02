@@ -1,7 +1,7 @@
 //SpecialMove.js
 
 export class InputBuffer {
-    constructor(limit = 6, inputs = []) {        
+    constructor(limit = 10, inputs = []) {        
         this.limit = limit;
         this.inputs = inputs;
         this.inputs.length = this.limit;

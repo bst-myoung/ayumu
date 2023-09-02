@@ -22,8 +22,10 @@ const gameButtons = {
     buttonPunch   : new GameButton('f', 'punch'),
 }
 const specialMoves =  {
-    spcHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downright', 'right'], 'punch'),
-    // spcSRK        : new SpecialMove('shoryuken', '昇竜拳', ['right', 'down', 'downright'] ),
+    spcLHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downleft', 'left'], 'punch'),
+    spcRHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downright', 'right'], 'punch'),
+    spcLSRK        : new SpecialMove('shoryuken', '昇竜拳', ['left', 'down', 'downleft'], 'punch' ),
+    spcRSRK        : new SpecialMove('shoryuken', '昇竜拳', ['right', 'down', 'downright'], 'punch' ),
 }
 const ayumu = new Ayumu('#ayumu', xPos, yPos);
 const stepTracker = new StepTracker('#steptracker');
@@ -46,7 +48,7 @@ function gameClock(timestamp) {
         handleAllButtonPresses(ayumu);    
         inputBuffer.updateBuffer();        
         // inputBuffer.printBuffer();
-        inputBuffer.printSimultaneousInputs();
+        // inputBuffer.printSimultaneousInputs();
         checkSpecialMoves(ayumu);        
         // specialInputListener.checkSpecialInputs();
         stepTracker.stepCheck(ayumu);
