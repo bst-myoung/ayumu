@@ -1,11 +1,12 @@
 //SpecialMove.js
 
 export class SpecialMove {
-    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '') {
+    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '', emoji = []) {
         this.nameEn     = nameEn;
         this.nameJp     = nameJp;
         this.inputsMove = inputsMove;
         this.inputAtk   = inputAtk;
+        this.emoji = emoji.join(""); //配列　→　文字列
     }
 
     moveListener(currentInputs, buffer) {
@@ -44,8 +45,9 @@ export class SpecialMove {
         return false;
     }
 
-    executeMove() {
-        console.log(this.nameEn + "!!");
+    executeMove() {        
+        console.log(this.nameEn + "!!");                
+        console.log(this.emoji);
     }
 
 }

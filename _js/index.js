@@ -21,12 +21,15 @@ const gameButtons = {
     buttonUp      : new GameButton('ArrowUp', 'up'),
     buttonPunch   : new GameButton('f', 'punch'),
 }
+let arrEmoji = ['⬇️','↘️', '➡️', '↙️', '⬅️','↖️', '⬆️', '↗️'];
 const specialMoves =  {
-    spcLHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downleft', 'left'], 'punch'),
-    spcRHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downright', 'right'], 'punch'),
-    spcLSRK        : new SpecialMove('shoryuken', '昇竜拳', ['left', 'down', 'downleft'], 'punch' ),
-    spcRSRK        : new SpecialMove('shoryuken', '昇竜拳', ['right', 'down', 'downright'], 'punch' ),
+    spcLHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downleft', 'left'], 'punch', ['⬇️', '↙️', '⬅️']),
+    spcRHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downright', 'right'], 'punch', ['⬇️', '↘️', '➡️']),
+    spcLSRK        : new SpecialMove('shoryuken', '昇竜拳', ['left', 'down', 'downleft'], 'punch', ['⬅️', '⬇️', '↙️']),
+    spcRSRK        : new SpecialMove('shoryuken', '昇竜拳', ['right', 'down', 'downright'], 'punch', ['➡️', '⬇️', '↘️'] ),
 }
+
+
 const ayumu = new Ayumu('#ayumu', xPos, yPos);
 const stepTracker = new StepTracker('#steptracker');
 
@@ -49,8 +52,7 @@ function gameClock(timestamp) {
         inputBuffer.updateBuffer();        
         // inputBuffer.printBuffer();
         // inputBuffer.printSimultaneousInputs();
-        checkSpecialMoves(ayumu);        
-        // specialInputListener.checkSpecialInputs();
+        checkSpecialMoves(ayumu);                
         stepTracker.stepCheck(ayumu);
         ayumu.ayumuWasMovedReset();    
         lastFrameTime = timestamp; 
