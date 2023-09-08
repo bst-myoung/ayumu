@@ -3,8 +3,8 @@
 
 .soundButton {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    bottom: 1rem;
+    right: 1rem;
     width: 1rem;
     height: 1rem;
     padding: 1rem;
@@ -19,6 +19,9 @@
     justify-content: center;
 
     cursor: pointer;
+
+    transition: all 0.3s ease;
+
     &.active {
         background: #{$black}50;
     }
