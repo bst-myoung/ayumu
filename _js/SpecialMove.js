@@ -1,15 +1,29 @@
 //SpecialMove.js
 
 export class SpecialMove {
-    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '', emoji = []) {
+    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '', emoji = [], sfxUrl = '') {
         this.nameEn     = nameEn;
         this.nameJp     = nameJp;
         this.inputsMove = inputsMove;
         this.inputAtk   = inputAtk;
-        this.emoji = emoji.join(""); //配列　→　文字列
+        this.emoji      = emoji.join(""); //配列　→　文字列
+        this.sfxUrl     = sfxUrl;    
+        this.sfx        = null;    
     }
 
-    moveListener(currentInputs, buffer) {
+    playSound(sound) {       
+        if(!sound.isSoundOn()) {
+            return;
+        }
+        if(!this.sfx) {            
+            this.sfx = new Howl({
+                src: [this.sfxUrl], format: ['wav'],
+            });
+        }
+        this.sfx.play();
+    }    
+
+    moveListener(currentInputs, buffer, sound) {
         if(currentInputs.includes(this.inputAtk)) {
             const inputChecklist = [];
             const alreadyChecked = [];
@@ -26,8 +40,8 @@ export class SpecialMove {
             });
             if(!this.checkOrder(inputChecklist, i)) {
                 return;
-            }  
-            this.executeMove();
+            }              
+            this.executeMove(sound);
         }
     }
     
@@ -45,9 +59,11 @@ export class SpecialMove {
         return false;
     }
 
-    executeMove() {        
+    executeMove(sound) {        
         console.log(this.nameEn + "!!");                
-        console.log(this.emoji);
+        console.log(this.emoji);        
+        this.playSound(sound);
+        
     }
 
 }

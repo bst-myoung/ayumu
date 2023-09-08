@@ -1,3 +1,5 @@
+import { _Howl as Howl } from "./howler.js";
+
 import { Ayumu }         from './Ayumu.js';
 import { AyumuMovement } from './AyumuMovement.js';
 import { GameButton }    from './GameButton.js';
@@ -5,6 +7,8 @@ import { StepTracker }   from './StepTracker.js';
 import { Field }         from './Field.js';
 import { SpecialMove }   from './SpecialMove.js';
 import { InputBuffer }   from './InputBuffer.js';
+import { Sound }         from './Sound.js';
+
 
 let xPos;
 let yPos;
@@ -13,6 +17,7 @@ xPos = 0;
 yPos = 0;
 lastFrameTime = 0;
 
+const sound = new Sound();
 const inputBuffer = new InputBuffer();
 const gameButtons = {
     buttonDown    : new GameButton('ArrowDown', 'down'),
@@ -20,14 +25,57 @@ const gameButtons = {
     buttonLeft    : new GameButton('ArrowLeft', 'left'),    
     buttonUp      : new GameButton('ArrowUp', 'up'),
     buttonPunch   : new GameButton('f', 'punch'),
+    buttonHado    : new GameButton('h', 'hado'),
 }
 let arrEmoji = ['⬇️','↘️', '➡️', '↙️', '⬅️','↖️', '⬆️', '↗️'];
-const specialMoves =  {
-    spcLHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downleft', 'left'], 'punch', ['⬇️', '↙️', '⬅️']),
-    spcRHadoken    : new SpecialMove('hadoken', '波動拳', ['down', 'downright', 'right'], 'punch', ['⬇️', '↘️', '➡️']),
-    spcLSRK        : new SpecialMove('shoryuken', '昇竜拳', ['left', 'down', 'downleft'], 'punch', ['⬅️', '⬇️', '↙️']),
-    spcRSRK        : new SpecialMove('shoryuken', '昇竜拳', ['right', 'down', 'downright'], 'punch', ['➡️', '⬇️', '↘️'] ),
-}
+
+const specialMoveData = [
+    {
+      nameEn: 'hadoken',
+      nameJp: '波動拳',
+      inputsMove: ['down', 'downleft', 'left'],
+      inputsAttack: 'punch',
+      emoji: ['⬇️', '↙️', '⬅️'],
+      sfxUrl: '../sound/hado.wav',      
+    },
+    {
+      nameEn: 'hadoken',
+      nameJp: '波動拳',
+      inputsMove: ['down', 'downright', 'right'],
+      inputsAttack: 'punch',
+      emoji: ['⬇️', '↘️', '➡️'],
+      sfxUrl: '../sound/hado.wav',
+    },
+    {
+      nameEn: 'shoryuken',
+      nameJp: '昇竜拳',
+      inputsMove: ['left', 'down', 'downleft'],
+      inputsAttack: 'punch',
+      emoji: ['⬅️', '⬇️', '↙️'],
+      sfxUrl: '../sound/shoryu.wav',
+    },
+    {
+      nameEn: 'shoryuken',
+      nameJp: '昇竜拳',
+      inputsMove: ['right', 'down', 'downright'],
+      inputsAttack: 'punch',
+      emoji: ['➡️', '⬇️', '↘️'],
+      sfxUrl: '../sound/shoryu.wav',
+    },
+];
+
+const specialMoves = {};
+
+specialMoveData.forEach((moveData, index) => {
+    specialMoves[`spc${index + 1}`] = new SpecialMove(
+        moveData.nameEn,
+        moveData.nameJp,
+        moveData.inputsMove,
+        moveData.inputsAttack,
+        moveData.emoji,
+        moveData.sfxUrl,
+    );
+});
 
 
 const ayumu = new Ayumu('#ayumu', xPos, yPos);
@@ -38,9 +86,9 @@ function handleAllButtonPresses(ayumu) {
         button.handleButtonPress(ayumu, inputBuffer);
     }
 }
-function checkSpecialMoves(ayumu) {
+function checkSpecialMoves(ayumu, sound) {
     for(const special of Object.values(specialMoves)) {
-        special.moveListener(inputBuffer.getSimultaneousInputs(), inputBuffer.getBuffer());
+        special.moveListener(inputBuffer.getSimultaneousInputs(), inputBuffer.getBuffer(), sound);
     }
 }
 
@@ -52,7 +100,7 @@ function gameClock(timestamp) {
         inputBuffer.updateBuffer();        
         // inputBuffer.printBuffer();
         // inputBuffer.printSimultaneousInputs();
-        checkSpecialMoves(ayumu);                
+        checkSpecialMoves(ayumu, sound);
         stepTracker.stepCheck(ayumu);
         ayumu.ayumuWasMovedReset();    
         lastFrameTime = timestamp; 
@@ -67,3 +115,5 @@ function startPage() {
 document.addEventListener('DOMContentLoaded', function () {    
     startPage();
 });
+
+export let _Howl = Howl;

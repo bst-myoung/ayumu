@@ -1,0 +1,25 @@
+@use './abstracts/' as *;
+@use 'sass:math';
+
+.soundButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 1rem;
+    height: 1rem;
+    padding: 1rem;
+    border-radius: 100%;
+
+    color: $white;
+    background: $black;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    &.active {
+        background: #{$black}50;
+    }
+}

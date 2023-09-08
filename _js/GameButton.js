@@ -30,7 +30,7 @@ export class GameButton {
       }
     });
     document.addEventListener('keyup', event => {
-      if (event.key === this.element && this.isPressed)
+      if (event.key === this.element && this.isPressed)        
         this.buttonRelease();
     });
   }
@@ -67,7 +67,7 @@ export class GameButton {
       case 'direction':
           ayumu.ayumuHandleMove(this.btnFunction);          
           inputBuffer.addInput(this.btnFunction); 
-          break;      
+          break;            
       default: break;
     }    
   }
