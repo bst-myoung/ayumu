@@ -115,5 +115,3 @@ function startPage() {
 document.addEventListener('DOMContentLoaded', function () {    
     startPage();
 });
-
-export let _Howl = Howl;
