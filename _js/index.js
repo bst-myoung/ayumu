@@ -9,7 +9,6 @@ import { SpecialMove }   from './SpecialMove.js';
 import { InputBuffer }   from './InputBuffer.js';
 import { Sound }         from './Sound.js';
 
-
 let xPos;
 let yPos;
 let lastFrameTime = 0;
@@ -19,6 +18,9 @@ lastFrameTime = 0;
 
 const sound = new Sound();
 const inputBuffer = new InputBuffer();
+const ayumu = new Ayumu('#ayumu', xPos, yPos);
+const stepTracker = new StepTracker('#steptracker');
+
 const gameButtons = {
     buttonDown    : new GameButton('ArrowDown', 'down'),
     buttonRight   : new GameButton('ArrowRight', 'right'),
@@ -27,8 +29,7 @@ const gameButtons = {
     buttonPunch   : new GameButton('f', 'punch'),
     buttonHado    : new GameButton('h', 'hado'),
 }
-let arrEmoji = ['⬇️','↘️', '➡️', '↙️', '⬅️','↖️', '⬆️', '↗️'];
-
+const arrEmoji = ['⬇️','↘️', '➡️', '↙️', '⬅️','↖️', '⬆️', '↗️'];
 const specialMoveData = [
     {
       nameEn: 'hadoken',
@@ -63,9 +64,7 @@ const specialMoveData = [
       sfxUrl: '../sound/shoryu.wav',
     },
 ];
-
 const specialMoves = {};
-
 specialMoveData.forEach((moveData, index) => {
     specialMoves[`spc${index + 1}`] = new SpecialMove(
         moveData.nameEn,
@@ -77,10 +76,6 @@ specialMoveData.forEach((moveData, index) => {
     );
 });
 
-
-const ayumu = new Ayumu('#ayumu', xPos, yPos);
-const stepTracker = new StepTracker('#steptracker');
-
 function handleAllButtonPresses(ayumu) {
     for(const button of Object.values(gameButtons)) {
         button.handleButtonPress(ayumu, inputBuffer);
@@ -91,10 +86,11 @@ function checkSpecialMoves(ayumu, sound) {
         special.moveListener(inputBuffer.getSimultaneousInputs(), inputBuffer.getBuffer(), sound);
     }
 }
-
 function gameClock(timestamp) {    
     const dt = timestamp - lastFrameTime;    
-    if(dt > 72) {        
+    const rate = 72;
+    const rateSlow = 720;
+    if(dt > rateSlow) {            
         inputBuffer.resetBuffer();
         handleAllButtonPresses(ayumu);    
         inputBuffer.updateBuffer();        
@@ -103,6 +99,7 @@ function gameClock(timestamp) {
         checkSpecialMoves(ayumu, sound);
         stepTracker.stepCheck(ayumu);
         ayumu.ayumuWasMovedReset();    
+        ayumu.ayumuCurrentPos();
         lastFrameTime = timestamp; 
     }
     requestAnimationFrame(gameClock);
@@ -110,8 +107,13 @@ function gameClock(timestamp) {
 function startPage() {        
     const theField = new Field('#field');
     theField.postClientRect();
+    theField.createGeomery();
     requestAnimationFrame(gameClock);
 }
+
+
+
+/// start
 document.addEventListener('DOMContentLoaded', function () {    
     startPage();
 });

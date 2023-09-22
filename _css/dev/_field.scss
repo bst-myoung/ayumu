@@ -7,3 +7,9 @@
         background-color: #ededed;
     }
 }
+
+.wall {
+    content: "";
+    position: absolute;
+    background: black;
+}

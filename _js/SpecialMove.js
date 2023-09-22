@@ -1,7 +1,7 @@
 //SpecialMove.js
 
 export class SpecialMove {
-    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '', emoji = [], sfxUrl = '') {
+    constructor(nameEn = "specialMove", nameJp = 'スペシャル', inputsMove = [], inputAtk = '', emoji = [], sfxUrl = '', gfx = ['', '']) {
         this.nameEn     = nameEn;
         this.nameJp     = nameJp;
         this.inputsMove = inputsMove;
@@ -9,6 +9,7 @@ export class SpecialMove {
         this.emoji      = emoji.join(""); //配列　→　文字列
         this.sfxUrl     = sfxUrl;    
         this.sfx        = null;    
+        this.gfx        = gfx;
     }
 
     playSound(sound) {       

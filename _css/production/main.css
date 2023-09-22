@@ -253,6 +253,12 @@ body {
   background-color: #ededed;
 }
 
+.wall {
+  content: "";
+  position: absolute;
+  background: black;
+}
+
 .ayumu-initial-pos {
   position: absolute;
   top: 50%;

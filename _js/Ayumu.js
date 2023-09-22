@@ -100,4 +100,7 @@ export class Ayumu {
           return this.yPos = this.yPos + this.stepDistance;    
       }      
   }
+  ayumuCurrentPos() {
+    console.log(this.elem.getBoundingClientRect());
+  }
 }
